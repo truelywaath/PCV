@@ -1,6 +1,6 @@
 ***
       SUBROUTINE hrdiag(mass,aj,mt,tm,tn,tscls,lums,GB,zpars,
-     &                  r,lum,kw,mc,rc,menv,renv,k2)
+     &                  r,lum,kw,mc,rc,menv,renv,k2,mco,rco)
 *
 *
 *       H-R diagram for population I stars.
@@ -25,6 +25,7 @@
       INTEGER ceflag,tflag,ifflag,nsflag,wdflag
       COMMON /FLAGS/ ceflag,tflag,ifflag,nsflag,wdflag
 *
+      real*8 mco,rco
       real*8 mass,aj,mt,tm,tn,tscls(20),lums(10),GB(10),zpars(20)
       real*8 r,lum,mc,rc,menv,renv,k2
       real*8 mch,mlp,tiny
@@ -394,6 +395,7 @@
                mt = mc
                mass = mt
                mc = mcx
+               mco = mc
                CALL star(kw,mass,mt,tm,tn,tscls,lums,GB,zpars)
                if(mc.le.GB(7))then
                   aj = tscls(4) - (1.d0/((GB(5)-1.d0)*GB(8)*GB(4)))*
@@ -410,6 +412,7 @@
          else
             kw = 6
             mc = mcgbtf(aj,GB(2),GB,tscls(10),tscls(11),tscls(12))
+            mco = mc
             lum = lmcgbf(mc,GB)
 *
 * Approximate 3rd Dredge-up on AGB by limiting Mc.
@@ -420,6 +423,7 @@
             mcy = mc
             mc = mc - lambda*(mcy-mcx)
             mcx = mc
+            mco = mcx
             mcmax = MIN(mt,mcmax)   
          endif
          r = ragbf(mt,lum,zpars(2))
@@ -431,6 +435,7 @@
          if(mcmax-mcx.lt.tiny)then
             aj = 0.d0
             mc = mcmax
+            mco = mc
             if(mc.lt.mch)then
                if(ifflag.ge.1)then
 *
@@ -484,6 +489,7 @@
                      else
                         mcx = 0.314154d0*mc + 0.686088d0
                      endif
+                     mco = mcx
                      if(mc.le.5.d0)then
                         mt = mcx
                      elseif(mc.lt.7.6d0)then
@@ -744,6 +750,7 @@
          rx = 0.0115d0*SQRT(MAX(1.48204d-06,
      &        (mch/mc)**(2.d0/3.d0) - (mc/mch)**(2.d0/3.d0)))
          rc = 5.d0*rx
+         rco = rc
       else
          rc = r
          menv = 1.0d-10

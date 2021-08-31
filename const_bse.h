@@ -10,6 +10,8 @@
       INTEGER ceflag,tflag,ifflag,nsflag,wdflag
       COMMON /FLAGS/ ceflag,tflag,ifflag,nsflag,wdflag
       INTEGER bhflag
+      INTEGER coflag
+      REAL*8 mco,rco
 *
       REAL*8 neta,bwind,hewind,mxns,alpha1,lambda
       REAL*8 sigma,beta,xi,acc2,epsnov,eddfac,gamma

@@ -39,6 +39,7 @@ c-------------------------------------------------------------c
       integer nv
       parameter(nv=50000)
 *
+      real*8 mco,rco
       real*8 mass,z,aj
       real*8 epoch,tphys,tphys2,tmold,tbgold
       real*8 mt,tm,tn,tphysf,dtp,tsave
@@ -167,7 +168,7 @@ c-------------------------------------------------------------c
 *
          kwold = kw
          CALL hrdiag(mass,aj,mt,tm,tn,tscls,lums,GB,zpars,
-     &               r,lum,kw,mc,rc,menv,renv,k2)
+     &               r,lum,kw,mc,rc,menv,renv,k2,mco,rco)
 *
 * If mass loss has occurred and no type change then check that we
 * have indeed limited the radius change to 10%.
@@ -212,7 +213,7 @@ c-------------------------------------------------------------c
                mc = mc1
                CALL star(kw,mass,mt,tm,tn,tscls,lums,GB,zpars)
                CALL hrdiag(mass,aj,mt,tm,tn,tscls,lums,GB,zpars,
-     &                     r,lum,kw,mc,rc,menv,renv,k2)
+     &                     r,lum,kw,mc,rc,menv,renv,k2,mco,rco)
                goto 20
             endif
  30         continue
@@ -306,7 +307,7 @@ c-------------------------------------------------------------c
             aj = MAX(aj,aj*(1.d0-eps)+dtr)
             mc1 = mc 
             CALL hrdiag(mass,aj,mt,tm,tn,tscls,lums,GB,zpars,
-     &                  r1,lum1,kw,mc1,rc1,menv1,renv1,k21)
+     &                  r1,lum1,kw,mc1,rc1,menv1,renv1,k21,mco,rco)
             dr = r1 - rm0
             if(ABS(dr).gt.0.1d0*rm0)then
                dtm = dtr - ajhold*eps
@@ -326,7 +327,7 @@ c-------------------------------------------------------------c
  40      aj = ajhold + dtm
          mc1 = mc 
          CALL hrdiag(mass,aj,mt,tm,tn,tscls,lums,GB,zpars,
-     &               r1,lum1,kw,mc1,rc1,menv1,renv1,k21)
+     &               r1,lum1,kw,mc1,rc1,menv1,renv1,k21,mco,rco)
          dr = r1 - rm0
          it = it + 1
          if(it.eq.20.and.kw.eq.4) goto 50

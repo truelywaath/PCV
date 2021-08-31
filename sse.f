@@ -131,7 +131,7 @@ c-------------------------------------------------------------c
       dtp = 0.d0
 * 
       CALL evolv1(kw,mass,mt,r,lum,mc,rc,menv,renv,ospin,
-     &            epoch,tms,tphys,tphysf,dtp,z,zpars)
+     &            epoch,tms,tphys,tphysf,dtp,z,zpars,mco,rco)
 *
 ************************************************************************
 * Output:
