@@ -148,8 +148,9 @@ c-------------------------------------------------------------c
       OPEN(23,file='evolve.dat',status='unknown')
       text1 = ' Tev(Myr)    type      Mo        Mt      log10(L) '
       text2 = ' log10(R) log10(Teff)  Mc        Menv     ' 
-      text3 = ' epoch      spin' 
-      WRITE(23,'(a,a,a)')text1,text2,text3
+      text3 = ' epoch      spin           ' 
+      text4 = ' mco      remnant(rapid)    remnant(delayed)' 
+      WRITE(23,'(a,a,a,a)')text1,text2,text3,text4
  30   j = j + 1
       if(scm(j,1).lt.0.0)then
          scm(j-1,1) = scm(j,1)
