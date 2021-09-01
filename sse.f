@@ -41,7 +41,7 @@ c-------------------------------------------------------------c
       real*8 epoch,tms,tphys,tphysf,dtp
       real*8 r,lum,ospin
       real*8 mc,rc,menv,renv
-      character*50 text1,text2,text3
+      character*50 text1,text2,text3,text4
       character*30 label(16)
       data label /' Low Mass MS Star ',' Main sequence Star ',
      &            ' Hertzsprung Gap ',' Giant Branch ',
@@ -156,7 +156,7 @@ c-------------------------------------------------------------c
          scm(j-1,1) = scm(j,1)
          j = j - 1
       endif
-      WRITE(23,99)(scm(j,k),k=1,8),scm(j,10),scm(j,12),scm(j,13)
+      WRITE(23,99)(scm(j,k),k=1,8),scm(j,10),scm(j,12),scm(j,13),scm(j,15),scm(j,16)
       if(scm(j,1).ge.0.0) goto 30
       CLOSE(23)
  99   FORMAT(8f10.4,1p,e12.4,0p,f12.4,1p,e12.4)
